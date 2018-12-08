@@ -1,9 +1,9 @@
-## Dasher-Mqtt docker image for raspberry pi
+## Dash button to mqtt docker image for raspberry pi
 
-mqtt-dasher: https://github.com/stjohnjohnson/mqtt-dasher
+I tried to use the npm-module dasher-mqtt at first - but that wouldnt install so I switched to python
+
 
 config via configmap - written to /mqtt-dasher/config
-
 
 
 ```
