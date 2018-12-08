@@ -7,19 +7,27 @@ config via configmap - written to /mqtt-dasher/config
 
 
 ```
-mqtt:
-    # Specify your MQTT Broker's hostname or IP address here
-    host: hostname
-    port: 1883
-    #leave empty if none
-    username:
-    password:
-    # Preface for the topics $PREFACE/$TOPIC
-    preface: dash
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dasher-mqtt-config
+  labels:
+    app: dasher-mqtt
+data:
+  config.yaml: |+i   
+        mqtt:
+            # Specify your MQTT Broker's hostname or IP address here
+            host: hostname
+            port: 1883
+            #leave empty if none
+            username:
+            password:
+            # Preface for the topics $PREFACE/$TOPIC
+            preface: dash
 
-buttons:
-    ac:12:33:44:55:66: dash/dashbuttonname1
-    ac:12:33:44:55:67: dash/dashbuttonname2
+        buttons:
+            ac:12:33:44:55:66: dash/dashbuttonname1
+            ac:12:33:44:55:67: dash/dashbuttonname2
 ```
 
 
@@ -49,8 +57,8 @@ spec:
           capabilities:
             add: ["NET_ADMIN"]    
       volumes:
-        - name: config
+        - name: dasher-mqtt-config
           configMap:
-            name: dasher-mqtt
+            name: dasher-mqtt-config
 ```
 
