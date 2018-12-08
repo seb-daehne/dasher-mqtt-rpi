@@ -3,7 +3,7 @@
 I tried to use the npm-module dasher-mqtt at first - but that wouldnt install so I switched to python
 
 
-config via configmap - written to /mqtt-dasher/config
+config via configmap - written to /config.yaml
 
 
 ```
@@ -50,7 +50,7 @@ spec:
       - image:  sebd/dasher-mqtt-rpi
         name:  dasher-mqtt
         volumeMounts:
-        - mountPath: /mqtt-dasher/config.yaml
+        - mountPath: /config.yaml
           name: dasher-mqtt-config
           subPath: config.yaml
         securityContext:
