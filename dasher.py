@@ -15,12 +15,13 @@ client.connect(config['mqtt']['host'], config['mqtt']['port'])
 
 def arp_display(pkt):
     pp = pprint.PrettyPrinter()
-    if (pkt[ARP].op == 1):
-        for mac, dest in config['buttons'].items():
-            if (pkt[ARP].hwsrc == mac):
-                print("found: ", dest)
-                client.publish(dest, 'active')
-                client.publish(dest, 'inactive')
+    if (ARP in pkt):
+        if (pkt[ARP].op == 1):
+            for mac, dest in config['buttons'].items():
+                if (pkt[ARP].hwsrc == mac):
+                    print("found: ", dest)
+                    client.publish(dest, 'active')
+                    client.publish(dest, 'inactive')
     
 
 
