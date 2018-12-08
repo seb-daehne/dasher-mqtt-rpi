@@ -56,6 +56,7 @@ spec:
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]    
+        tty: true
       volumes:
         - name: dasher-mqtt-config
           configMap:

@@ -19,9 +19,10 @@ def arp_display(pkt):
         if (pkt[ARP].op == 1):
             for mac, dest in config['buttons'].items():
                 if (pkt[ARP].hwsrc == mac):
-                    print("found: ", dest)
+                    print("found: ", dest, "- report active")
                     client.publish(dest, 'active')
                     sleep(2)
+                    print(dest, "- report inactive")
                     client.publish(dest, 'inactive')
     
 
