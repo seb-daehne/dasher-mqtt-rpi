@@ -4,6 +4,8 @@ mqtt-dasher: https://github.com/stjohnjohnson/mqtt-dasher
 
 config via configmap - written to /mqtt-dasher/config
 
+
+
 ```
 mqtt:
     # Specify your MQTT Broker's hostname or IP address here
@@ -21,4 +23,30 @@ buttons:
 ```
 
 
+kubernetes deployment.yaml
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name:  dasher-mqtt
+  labels:
+    name:  dasher-mqtt
+spec:
+  template:
+    metadata:
+      labels:
+        name:  dasher-mqtt
+    spec:
+      containers:
+      - image:  sebd/dasher-mqtt-rpi
+        name:  dasher-mqtt
+        volumeMounts:
+        - mountPath: /mqtt-dasher/config.yaml
+          name: dasher-mqtt-config
+          subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: dasher-mqtt
+```
 
