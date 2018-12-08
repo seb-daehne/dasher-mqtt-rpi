@@ -2,6 +2,7 @@ from scapy.all import * # for sniffing for the ARP packets
 import os
 import yaml
 import paho.mqtt.client as mqtt
+from time import sleep
 import pprint
 
 # read the config
@@ -14,13 +15,13 @@ client.connect(config['mqtt']['host'], config['mqtt']['port'])
 
 
 def arp_display(pkt):
-    pp = pprint.PrettyPrinter()
     if (ARP in pkt):
         if (pkt[ARP].op == 1):
             for mac, dest in config['buttons'].items():
                 if (pkt[ARP].hwsrc == mac):
                     print("found: ", dest)
                     client.publish(dest, 'active')
+                    sleep(2)
                     client.publish(dest, 'inactive')
     
 
