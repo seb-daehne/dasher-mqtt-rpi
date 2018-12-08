@@ -37,6 +37,7 @@ spec:
       labels:
         name:  dasher-mqtt
     spec:
+      hostNetwork: true
       containers:
       - image:  sebd/dasher-mqtt-rpi
         name:  dasher-mqtt
@@ -44,6 +45,9 @@ spec:
         - mountPath: /mqtt-dasher/config.yaml
           name: dasher-mqtt-config
           subPath: config.yaml
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]    
       volumes:
         - name: config
           configMap:
