@@ -10,8 +10,6 @@ config = yaml.load(open('config.yaml'))
 
 # mqtt server
 print("mqtt server: ", config['mqtt']['host'], ":", config['mqtt']['port']) 
-client = mqtt.Client("co2")
-client.connect(config['mqtt']['host'], config['mqtt']['port'])
 
 
 def arp_display(pkt):
@@ -19,11 +17,14 @@ def arp_display(pkt):
         if (pkt[ARP].op == 1):
             for mac, dest in config['buttons'].items():
                 if (pkt[ARP].hwsrc == mac):
+                    client = mqtt.Client("co2")
+                    client.connect(config['mqtt']['host'], config['mqtt']['port'])
                     print("found: ", dest, "- report active")
                     client.publish(dest, 'active')
                     sleep(2)
                     print(dest, "- report inactive")
                     client.publish(dest, 'inactive')
+                    client.disconnect()
     
 
 
