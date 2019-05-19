@@ -14,7 +14,7 @@ metadata:
   labels:
     app: dasher-mqtt
 data:
-  config.yaml: |+i   
+  config.yaml: |+   
         mqtt:
             # Specify your MQTT Broker's hostname or IP address here
             host: hostname
